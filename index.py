@@ -1,4 +1,5 @@
-from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver import Chrome
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -41,7 +42,7 @@ def get_review_data(driver):
 # -- MAIN -- #
 URL = 'https://amaro.com/moda-feminina/roupas-essenciais'
 
-driver = webdriver.Chrome()
+driver = Chrome(ChromeDriverManager().install())
 driver.get(URL)
 
 product_urls = get_product_urls(driver)
