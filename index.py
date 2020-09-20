@@ -29,14 +29,14 @@ def get_review_data(driver):
         except:
             wait_and_cancel_popup(driver)
             star.click()
-        sleep(5)
+        sleep(1)
         container = WebDriverWait(driver, 60).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'yotpo-reviews'))
         )
         reviews = container.find_elements(By.XPATH, "//div[@class='yotpo-review-wrapper']/div[@class='content-review']")
         #TODO verificar se existe comentarios
-        for r in reviews:
-            print(r.text)
+        #for r in reviews:
+        #    print(r.text)
 
 
 def function(driver, i):
@@ -64,7 +64,7 @@ def get_star(driver,i):
 
 def wait_and_cancel_popup(driver):
     try:
-        WebDriverWait(driver,60).until(
+        WebDriverWait(driver,20).until(
             EC.presence_of_element_located(
                 (By.XPATH, 
                 "//iframe[@title='Modal Message']")
@@ -82,9 +82,11 @@ driver = Chrome(ChromeDriverManager().install())
 driver.get(URL)
 wait_and_cancel_popup(driver)
 product_urls = get_product_urls(driver)
+counter = 0
 for url in product_urls:
+    counter = counter + 1
     driver.get(url)
     data = get_review_data(driver)
-    print(data)
+    print(counter)
 
 driver.close()
